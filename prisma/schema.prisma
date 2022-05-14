@@ -1,0 +1,211 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Movie {
+  id                   String              @id @default(uuid())
+  tmdb_id              Int?
+  backdrop_path        String?
+  budget               Int?
+  genres               Genre[]
+  homepage             String?
+  imdb_id              String?
+  original_language    String
+  original_title       String
+  overview             String
+  popularity           Float
+  poster_path          String?
+  production_companies ProductionCompany[]
+  production_countries ProductionCountry[]
+  release_date         String
+  revenue              Float
+  runtime              Float
+  spoken_languages     SpokenLanguage[]
+  status               String
+  tagline              String
+  title                String
+  video                Boolean
+  vote_average         Float
+  vote_count           Float
+  images               Images[]
+  videos               Videos[]
+  external_ids         ExternalIds         @relation(fields: [externalIdsId], references: [id])
+  release_dates        ReleaseDates[]
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @default(now()) @updatedAt
+  externalIdsId        Int
+  cursor               Int?
+}
+
+model ReleaseDates {
+  id            String  @id @default(uuid())
+  iso_3166_1    String
+  certification String
+  iso_639_1     String?
+  note          String?
+  release_date  String
+  type          Int
+  Movie         Movie?  @relation(fields: [movieId], references: [id])
+  movieId       String?
+}
+
+model ExternalIds {
+  id           Int     @id @default(autoincrement())
+  imdb_id      String?
+  facebook_id  String?
+  instagram_id String?
+  twitter_id   String?
+  Movie        Movie[]
+}
+
+model Videos {
+  iso_639_1    String
+  iso_3166_1   String
+  name         String
+  key          String
+  site         String
+  size         Int
+  type         String
+  official     Boolean
+  published_at DateTime
+  id           String   @id @default(uuid())
+  Movie        Movie?   @relation(fields: [movieId], references: [id])
+  movieId      String?
+}
+
+model BackdropType {
+  id           Int     @id @default(autoincrement())
+  aspect_ratio Float
+  height       Int
+  iso_639_1    String?
+  file_path    String
+  vote_average Float
+  vote_count   Int
+  width        Int
+  Images       Images? @relation(fields: [imagesId], references: [id])
+  imagesId     Int?
+}
+
+model PosterType {
+  id           Int     @id @default(autoincrement())
+  aspect_ratio Float
+  height       Int
+  iso_639_1    String?
+  file_path    String
+  vote_average Float
+  vote_count   Int
+  width        Int
+  Images       Images? @relation(fields: [imagesId], references: [id])
+  imagesId     Int?
+}
+
+model LogoType {
+  id           Int     @id @default(autoincrement())
+  aspect_ratio Float
+  height       Int
+  iso_639_1    String?
+  file_path    String
+  vote_average Float
+  vote_count   Int
+  width        Int
+  Images       Images? @relation(fields: [imagesId], references: [id])
+  imagesId     Int?
+}
+
+model Images {
+  id        Int            @id @default(autoincrement())
+  backdrops BackdropType[]
+  logos     LogoType[]
+  posters   PosterType[]
+  Movie     Movie?         @relation(fields: [movieId], references: [id])
+  movieId   String?
+}
+
+model ProductionCompany {
+  id             Int     @id @default(autoincrement())
+  name           String
+  logo_path      String?
+  origin_country String
+  Movie          Movie?  @relation(fields: [movieId], references: [id])
+  movieId        String?
+}
+
+model SpokenLanguage {
+  id           String  @id @default(uuid())
+  english_name String
+  iso_639_1    String
+  name         String
+  Movie        Movie?  @relation(fields: [movieId], references: [id])
+  movieId      String?
+}
+
+model ProductionCountry {
+  id         String  @id @default(uuid())
+  iso_3166_1 String
+  name       String
+  Movie      Movie?  @relation(fields: [movieId], references: [id])
+  movieId    String?
+}
+
+model Genre {
+  id      Int     @id @default(autoincrement())
+  name    String
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String?
+}
+
+model BelongsToCollection {
+  id            String  @id @default(uuid())
+  name          String
+  backdrop_path String?
+  poster_path   String?
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String
+  emailVerified DateTime?
+  resetToken    String
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}

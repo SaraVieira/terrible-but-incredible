@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "ReleaseDates" ALTER COLUMN "iso_639_1" DROP NOT NULL,
+ALTER COLUMN "note" DROP NOT NULL;

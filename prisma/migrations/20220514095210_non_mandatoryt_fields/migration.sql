@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Movie" ALTER COLUMN "backdrop_path" DROP NOT NULL,
+ALTER COLUMN "budget" DROP NOT NULL,
+ALTER COLUMN "imdb_id" DROP NOT NULL,
+ALTER COLUMN "poster_path" DROP NOT NULL;
