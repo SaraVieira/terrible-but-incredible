@@ -11,6 +11,8 @@ const prisma = new PrismaClient();
 const removeid = (arr) => arr.map((obj) => omit(obj, 'id'));
 
 async function main() {
+  const count = await prisma.movie.count();
+  if (count) return;
   const a = seeds.map(async (seed) => {
     return prisma.movie.create({
       data: {
@@ -26,6 +28,7 @@ async function main() {
           'release_dates',
           'videos',
         ]),
+        release_date: new Date(seed.release_date),
         release_dates: {
           createMany: {
             data: seed.release_dates

@@ -25,7 +25,7 @@ model Movie {
   poster_path          String?
   production_companies ProductionCompany[]
   production_countries ProductionCountry[]
-  release_date         String
+  release_date         DateTime
   revenue              Float
   runtime              Float
   spoken_languages     SpokenLanguage[]

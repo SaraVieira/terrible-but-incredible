@@ -37,6 +37,7 @@
     "@trpc/react": "^9.23.2",
     "@trpc/server": "^9.23.2",
     "@types/bcryptjs": "^2.4.2",
+    "@types/lodash": "^4.14.182",
     "autoprefixer": "^10.4.5",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

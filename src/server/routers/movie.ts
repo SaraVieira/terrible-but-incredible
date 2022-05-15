@@ -1,30 +1,27 @@
-import { Prisma } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
+import { omit } from 'lodash';
 import { createRouter } from '~/server/createRouter';
 import { prisma } from '~/server/prisma';
 
-const defaultPostSelect = Prisma.validator<Prisma.MovieSelect>()({
-  id: true,
-  title: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-const allChildren = {
-  genres: true,
-  production_companies: true,
-  production_countries: true,
-  spoken_languages: true,
-  images: true,
-  videos: true,
-  external_ids: true,
-  release_dates: true,
-};
-
-const randomPick = (values: string[]) => {
-  const index = Math.floor(Math.random() * values.length);
-  return values[index];
+export const defaultMovieSelect = {
+  include: {
+    genres: true,
+    production_companies: true,
+    production_countries: true,
+    spoken_languages: true,
+    images: {
+      include: {
+        posters: true,
+      },
+    },
+    videos: true,
+    external_ids: true,
+    release_dates: true,
+  },
+  orderBy: {
+    id: 'desc',
+  },
 };
 
 export const movieRouter = createRouter()
@@ -45,25 +42,10 @@ export const movieRouter = createRouter()
         : {};
       // @ts-ignore
       const items = await prisma.movie.findMany({
-        include: {
-          genres: true,
-          production_companies: true,
-          production_countries: true,
-          spoken_languages: true,
-          images: {
-            include: {
-              posters: true,
-            },
-          },
-          videos: true,
-          external_ids: true,
-          release_dates: true,
-        },
-        orderBy: {
-          id: 'desc',
-        },
+        ...defaultMovieSelect,
         take: limit + 1,
         ...prismaHatesEmptyCursors,
+        orderBy: {},
       });
       let nextCursor: typeof cursor | null = null;
       if (items.length > limit) {
@@ -86,7 +68,7 @@ export const movieRouter = createRouter()
       const { id } = input;
       const post = await prisma.movie.findUnique({
         where: { id },
-        include: allChildren,
+        ...omit(defaultMovieSelect, 'orderBy'),
       });
       if (!post) {
         throw new TRPCError({
