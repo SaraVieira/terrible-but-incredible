@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
-body {
+body input[type="search"] {
+    @apply rounded-xl border-2 border-grayscale-200 focus:border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all
+}
 
+.search-area:focus-within svg {
+    @apply text-yellow
 }

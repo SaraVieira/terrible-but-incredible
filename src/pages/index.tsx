@@ -1,11 +1,16 @@
-import Link from 'next/link';
+import { Genre, Movie } from '@prisma/client';
+
 import React, { useEffect, useRef } from 'react';
+
 import { MovieCard } from '~/components/MovieCard';
-import { PATHS } from '~/utils/constants/TMDB';
+import { Search } from '~/components/Search';
+
 import { useMovies } from '~/utils/hooks/useMovies';
+import { useSearch } from '~/utils/hooks/useSearch';
 
 const IndexPage = () => {
-  const movies = useMovies();
+  const { search } = useSearch();
+  const movies = useMovies({ query: search });
   const loadingRef = useRef<any>();
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const IndexPage = () => {
 
       const observer = new IntersectionObserver((entities) => {
         if (!entities || !entities[0]) return null;
-        if (entities[0].isIntersecting) {
+        if (entities[0].isIntersecting && !movies.isFetchingNextPage) {
           movies.fetchNextPage();
         }
       }, options);
@@ -28,10 +33,11 @@ const IndexPage = () => {
 
   return (
     <>
+      <Search />
       <div className="flex gap-7 flex-wrap justify-center">
         {movies.data?.pages.map((page, i) => (
           <React.Fragment key={i}>
-            {page.items.map((item) => (
+            {page.items.map((item: Movie & { genres: Genre[] }) => (
               <MovieCard {...item} key={item.id} />
             ))}
           </React.Fragment>

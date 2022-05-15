@@ -29,6 +29,7 @@ export const movieRouter = createRouter()
     input: z.object({
       limit: z.number().min(1).max(100).nullish(),
       cursor: z.any().nullish(), // <-- "cursor" needs to exist, but can be any type
+      query: z.string().nullish(),
     }),
     async resolve({ input }) {
       const limit = input.limit ?? 50;
@@ -40,18 +41,31 @@ export const movieRouter = createRouter()
             },
           }
         : {};
+
+      const search = input.query
+        ? {
+            where: {
+              title: {
+                contains: input.query,
+                mode: 'insensitive',
+              },
+            },
+          }
+        : {};
       // @ts-ignore
       const items = await prisma.movie.findMany({
         ...defaultMovieSelect,
         take: limit + 1,
         ...prismaHatesEmptyCursors,
-        orderBy: {},
+        ...search,
       });
       let nextCursor: typeof cursor | null = null;
       if (items.length > limit) {
         const nextItem = items.pop();
         nextCursor = nextItem?.id;
       }
+
+      console.log(items[0]);
 
       return {
         items,

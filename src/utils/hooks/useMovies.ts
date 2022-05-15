@@ -1,12 +1,15 @@
 import { trpc } from '../trpc';
 
-export const useMovies = () => {
+export const useMovies = ({
+  query,
+}: { query?: string | string[] | undefined } = {}) => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     trpc.useInfiniteQuery(
       [
         'movies.all',
         {
           limit: 10,
+          query: query?.toString(),
         },
       ],
       {
