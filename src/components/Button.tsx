@@ -38,8 +38,10 @@ export const Button = ({
 }: Props) => {
   const disabled = props.disabled || loading;
   const classes = {
-    primary: 'bg-red-600 rounded-md h-[48px] disabled:opacity-50',
-    secondary: 'text-red-600 rounded-md h-[48px] disabled:opacity-50',
+    primary:
+      'bg-primary-500 rounded-md h-[56px] disabled:bg-primary-200 text-white text-bodyM font-bold',
+    secondary:
+      'text-red-600 rounded-md h-[56px] disabled:opacity-50 text-bodyM font-bold',
   };
 
   if (href) {
@@ -48,7 +50,7 @@ export const Button = ({
         <a
           className={classNames(
             classes[variant],
-            'w-full text-center block',
+            'w-full text-center block ',
             className,
           )}
           {...props}

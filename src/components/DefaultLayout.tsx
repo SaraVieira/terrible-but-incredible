@@ -9,7 +9,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
     <>
       <div className="min-h-screen text-[#141414] py-8">
         <Header />
-        <main className="max-w-[80%] w-7xl m-auto mt-8 mb-16">{children}</main>
+        <main className="max-w-[80%] w-7xl m-auto mt-8 mb-16 h-full">
+          {children}
+        </main>
       </div>
       {process.env.NODE_ENV !== 'production' && (
         <ReactQueryDevtools initialIsOpen={false} />

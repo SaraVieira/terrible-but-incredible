@@ -65,8 +65,6 @@ export const movieRouter = createRouter()
         nextCursor = nextItem?.id;
       }
 
-      console.log(items[0]);
-
       return {
         items,
         nextCursor,
