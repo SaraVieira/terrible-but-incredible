@@ -41,7 +41,7 @@ model Movie {
   release_dates        ReleaseDates[]
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @default(now()) @updatedAt
-  externalIdsId        Int
+  externalIdsId        String
   cursor               Int?
 }
 
@@ -58,7 +58,7 @@ model ReleaseDates {
 }
 
 model ExternalIds {
-  id           Int     @id @default(autoincrement())
+  id           String  @id @default(uuid())
   imdb_id      String?
   facebook_id  String?
   instagram_id String?
@@ -82,7 +82,7 @@ model Videos {
 }
 
 model BackdropType {
-  id           Int     @id @default(autoincrement())
+  id           String  @id @default(uuid())
   aspect_ratio Float
   height       Int
   iso_639_1    String?
@@ -95,7 +95,7 @@ model BackdropType {
 }
 
 model PosterType {
-  id           Int     @id @default(autoincrement())
+  id           String  @id @default(uuid())
   aspect_ratio Float
   height       Int
   iso_639_1    String?
@@ -108,7 +108,7 @@ model PosterType {
 }
 
 model LogoType {
-  id           Int     @id @default(autoincrement())
+  id           String  @id @default(uuid())
   aspect_ratio Float
   height       Int
   iso_639_1    String?
@@ -130,7 +130,7 @@ model Images {
 }
 
 model ProductionCompany {
-  id             Int     @id @default(autoincrement())
+  id             String  @id @default(uuid())
   name           String
   logo_path      String?
   origin_country String
@@ -156,7 +156,7 @@ model ProductionCountry {
 }
 
 model Genre {
-  id      Int     @id @default(autoincrement())
+  id      String  @id @default(uuid())
   name    String
   Movie   Movie?  @relation(fields: [movieId], references: [id])
   movieId String?

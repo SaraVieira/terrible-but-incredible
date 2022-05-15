@@ -9,7 +9,7 @@ import superjson from 'superjson';
 import { DefaultLayout } from '~/components/DefaultLayout';
 import { AppRouter } from '~/server/routers/_app';
 import { SSRContext } from '~/utils/trpc';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import '../styles/global.css';
 import { getAbsoluteUrl } from '~/utils/absolute-url';
 

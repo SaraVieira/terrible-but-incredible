@@ -22,6 +22,11 @@ const allChildren = {
   release_dates: true,
 };
 
+const randomPick = (values: string[]) => {
+  const index = Math.floor(Math.random() * values.length);
+  return values[index];
+};
+
 export const movieRouter = createRouter()
   .query('all', {
     input: z.object({
@@ -40,7 +45,23 @@ export const movieRouter = createRouter()
         : {};
       // @ts-ignore
       const items = await prisma.movie.findMany({
-        include: allChildren,
+        include: {
+          genres: true,
+          production_companies: true,
+          production_countries: true,
+          spoken_languages: true,
+          images: {
+            include: {
+              posters: true,
+            },
+          },
+          videos: true,
+          external_ids: true,
+          release_dates: true,
+        },
+        orderBy: {
+          id: 'desc',
+        },
         take: limit + 1,
         ...prismaHatesEmptyCursors,
       });

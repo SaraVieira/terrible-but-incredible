@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
+import { MovieCard } from '~/components/MovieCard';
+import { PATHS } from '~/utils/constants/TMDB';
 import { useMovies } from '~/utils/hooks/useMovies';
 
 const IndexPage = () => {
@@ -26,26 +28,15 @@ const IndexPage = () => {
 
   return (
     <>
-      <h2 className="text-center pb-8 font-bold text-3xl">
-        Welcome to the next full stack starter!
-      </h2>
-
-      <h3 className="text-xl font-bold py-4">
-        movies
-        {movies.isLoading && '(loading)'}
-      </h3>
-      {movies.data?.pages.map((page, i) => (
-        <React.Fragment key={i}>
-          {page.items.map((item) => (
-            <article key={item.id} className="my-4">
-              <h3 className="font-bold text-lg">{item.title}</h3>
-              <Link href={`/movie/${item.id}`}>
-                <a className="underline">Read more {'->'} </a>
-              </Link>
-            </article>
-          ))}
-        </React.Fragment>
-      ))}
+      <div className="flex gap-7 flex-wrap justify-center">
+        {movies.data?.pages.map((page, i) => (
+          <React.Fragment key={i}>
+            {page.items.map((item) => (
+              <MovieCard {...item} key={item.id} />
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
       {movies.hasNextPage && <div ref={loadingRef}>Loading</div>}
     </>
   );

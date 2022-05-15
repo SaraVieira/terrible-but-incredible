@@ -8,6 +8,8 @@ import seeds from './seed.json';
 import { omit } from 'lodash';
 const prisma = new PrismaClient();
 
+const removeid = (arr) => arr.map((obj) => omit(obj, 'id'));
+
 async function main() {
   const a = seeds.map(async (seed) => {
     return prisma.movie.create({
@@ -26,12 +28,11 @@ async function main() {
         ]),
         release_dates: {
           createMany: {
-            skipDuplicates: true,
             data: seed.release_dates
               .map((date) =>
                 date.release_dates.flatMap((b) => ({
                   iso_3166_1: date.iso_3166_1,
-                  ...b,
+                  ...omit(b, 'id'),
                 })),
               )
               .flat()
@@ -41,39 +42,33 @@ async function main() {
         tmdb_id: seed.id,
         production_companies: {
           createMany: {
-            skipDuplicates: true,
-            data: seed.production_companies,
+            data: removeid(seed.production_companies),
           },
         },
         production_countries: {
           createMany: {
-            skipDuplicates: true,
-            data: seed.production_countries,
+            data: removeid(seed.production_countries),
           },
         },
         spoken_languages: {
           createMany: {
-            skipDuplicates: true,
-            data: seed.spoken_languages,
+            data: removeid(seed.spoken_languages),
           },
         },
         images: {
           create: {
             backdrops: {
               createMany: {
-                skipDuplicates: true,
                 data: seed.images.backdrops,
               },
             },
             logos: {
               createMany: {
-                skipDuplicates: true,
                 data: seed.images.logos,
               },
             },
             posters: {
               createMany: {
-                skipDuplicates: true,
                 data: seed.images.posters,
               },
             },
@@ -82,18 +77,16 @@ async function main() {
         },
         videos: {
           createMany: {
-            skipDuplicates: true,
             // @ts-ignore
             data: seed.videos.results,
           },
         },
         external_ids: {
-          create: seed.external_ids,
+          create: omit(seed.external_ids, 'id'),
         },
         genres: {
           createMany: {
-            skipDuplicates: true,
-            data: seed.genres,
+            data: removeid(seed.genres),
           },
         },
       },
