@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
-    "build:1-migrate": "prisma migrate deploy",
     "build:2-next": "next build",
     "build": "run-s build:*",
     "db-up": "docker-compose up -d",

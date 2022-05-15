@@ -8,12 +8,22 @@ import seeds from './seed.json';
 import { omit } from 'lodash';
 const prisma = new PrismaClient();
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const removeid = (arr) => arr.map((obj) => omit(obj, 'id'));
 
 async function main() {
-  const count = await prisma.movie.count();
-  if (count) return;
   const a = seeds.map(async (seed) => {
+    const exists = await prisma.movie.findFirst({
+      where: {
+        tmdb_id: seed.id,
+      },
+    });
+    if (exists) return;
     return prisma.movie.create({
       data: {
         ...omit(seed, [
@@ -96,7 +106,11 @@ async function main() {
     });
   });
 
-  await Promise.all(a);
+  while (a.length) {
+    // 100 at a time
+    await Promise.all(a.splice(0, 2));
+    sleep(200);
+  }
 }
 
 main()
