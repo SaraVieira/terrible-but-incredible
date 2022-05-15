@@ -42,7 +42,6 @@ model Movie {
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @default(now()) @updatedAt
   externalIdsId        String
-  cursor               Int?
 }
 
 model ReleaseDates {
