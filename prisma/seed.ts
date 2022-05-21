@@ -3,9 +3,11 @@
  *
  * @link https://www.prisma.io/docs/guides/database/seed-database
  */
+
 import { PrismaClient } from '@prisma/client';
-import seeds from './seed.json';
+import seeds from './utils/seed.json';
 import { omit } from 'lodash';
+import { createMovieData } from './utils/createMovieData';
 const prisma = new PrismaClient();
 
 function sleep(ms) {
@@ -13,9 +15,7 @@ function sleep(ms) {
     setTimeout(resolve, ms);
   });
 }
-
 const removeid = (arr) => arr.map((obj) => omit(obj, 'id'));
-
 async function main() {
   const a = seeds.map(async (seed) => {
     const exists = await prisma.movie.findFirst({
@@ -23,10 +23,13 @@ async function main() {
         tmdb_id: seed.id,
       },
     });
+
     if (exists) return;
+    const movie = await createMovieData(seed.id);
     return prisma.movie.create({
+      // @ts-ignore
       data: {
-        ...omit(seed, [
+        ...omit(movie, [
           `belongs_to_collection`,
           'id',
           'genres',
@@ -37,11 +40,14 @@ async function main() {
           'external_ids',
           'release_dates',
           'videos',
+          'cast',
+          'adult',
+          'crew',
         ]),
-        release_date: new Date(seed.release_date),
+        release_date: new Date(movie.release_date),
         release_dates: {
           createMany: {
-            data: seed.release_dates
+            data: movie.release_dates
               .map((date) =>
                 date.release_dates.flatMap((b) => ({
                   iso_3166_1: date.iso_3166_1,
@@ -52,65 +58,71 @@ async function main() {
               .filter((c) => c.certification),
           },
         },
-        tmdb_id: seed.id,
+        tmdb_id: movie.id,
         production_companies: {
           createMany: {
-            data: removeid(seed.production_companies),
+            data: removeid(movie.production_companies),
+          },
+        },
+        cast: {
+          createMany: {
+            data: removeid(movie.cast),
+          },
+        },
+        crew: {
+          createMany: {
+            data: removeid(movie.crew),
           },
         },
         production_countries: {
           createMany: {
-            data: removeid(seed.production_countries),
+            data: removeid(movie.production_countries),
           },
         },
         spoken_languages: {
           createMany: {
-            data: removeid(seed.spoken_languages),
+            data: removeid(movie.spoken_languages),
           },
         },
+
         images: {
           create: {
             backdrops: {
               createMany: {
-                data: seed.images.backdrops,
+                data: movie.images.backdrops,
               },
             },
             logos: {
               createMany: {
-                data: seed.images.logos,
+                data: movie.images.logos,
               },
             },
             posters: {
               createMany: {
-                data: seed.images.posters,
+                data: movie.images.posters,
               },
             },
-            id: seed.images.id,
+            id: movie.images.id,
           },
         },
         videos: {
           createMany: {
-            // @ts-ignore
-            data: seed.videos.results,
+            data: movie.videos.results,
           },
         },
         external_ids: {
-          create: omit(seed.external_ids, 'id'),
+          create: omit(movie.external_ids, 'id'),
         },
         genres: {
           createMany: {
-            data: removeid(seed.genres),
+            data: removeid(movie.genres),
           },
         },
       },
     });
   });
 
-  while (a.length) {
-    // 100 at a time
-    await Promise.all(a.splice(0, 2));
-    sleep(200);
-  }
+  Promise.all(a);
 }
 
 main()

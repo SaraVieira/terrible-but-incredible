@@ -10,9 +10,9 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
   const year = new Date(movie.release_date).getFullYear();
   return (
     <Link href={`/movie/${movie.id}`} key={movie.id}>
-      <a className="sm:w-[383px]">
+      <a className="sm:w-[383px] w-full">
         <article className="bg-grayscale-200 rounded-lg hover:shadow-md hover:scale-105 transition-all">
-          <div className="overflow-hidden rounded-lg relative  max-w-sm">
+          <div className="overflow-hidden rounded-lg relative  sm:max-w-sm">
             <div
               className="inset-0 absolute"
               style={{
@@ -21,7 +21,7 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
               }}
             ></div>
             <div
-              className="h-[216px] sm:w-[383px] bg-cover bg-center"
+              className="h-[400px] sm:h-[216px]  w-full sm:w-[383px] bg-cover bg-center"
               style={{
                 backgroundImage: `url(${bgImage})`,
               }}

@@ -37,11 +37,45 @@ model Movie {
   vote_count           Float
   images               Images[]
   videos               Videos[]
-  external_ids         ExternalIds         @relation(fields: [externalIdsId], references: [id])
+  external_ids         ExternalIds?
+  cast                 Cast[]
+  crew                 Crew[]
   release_dates        ReleaseDates[]
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @default(now()) @updatedAt
-  externalIdsId        String
+}
+
+model Cast {
+  id                   String  @id @default(uuid())
+  adult                Boolean
+  gender               Int
+  known_for_department String
+  name                 String
+  original_name        String
+  popularity           Float
+  profile_path         String?
+  cast_id              Int
+  character            String?
+  credit_id            String
+  order                Int
+  Movie                Movie   @relation(fields: [movieId], references: [id])
+  movieId              String
+}
+
+model Crew {
+  id                   String  @id @default(uuid())
+  adult                Boolean
+  gender               Int
+  known_for_department String
+  name                 String
+  original_name        String
+  popularity           Float
+  profile_path         String?
+  credit_id            String
+  department           String
+  job                  String
+  Movie                Movie   @relation(fields: [movieId], references: [id])
+  movieId              String
 }
 
 model ReleaseDates {
@@ -62,7 +96,8 @@ model ExternalIds {
   facebook_id  String?
   instagram_id String?
   twitter_id   String?
-  Movie        Movie[]
+  Movie        Movie   @relation(fields: [movieId], references: [id])
+  movieId      String  @unique
 }
 
 model Videos {
