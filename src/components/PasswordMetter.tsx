@@ -3,7 +3,7 @@ import { STEPS, usePasswordStrenght } from '~/utils/hooks/usePasswordStrenght';
 
 export const PasswordMeter = ({ password }) => {
   const { status, score } = usePasswordStrenght(password);
-
+  console.log(status?.bg);
   return (
     <div className="grid grid-cols-5 gap-5 mb-4 -mt-3 items-center">
       <div
@@ -13,6 +13,7 @@ export const PasswordMeter = ({ password }) => {
         className={classNames(
           score > STEPS[0] ? status?.bg : 'bg-grayscale-200',
           'h-2 rounded-md',
+          status?.bg,
         )}
       ></div>
       <div

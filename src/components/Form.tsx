@@ -24,7 +24,7 @@ export const Input = forwardRef((props: any, ref): ReactElement => {
         <input
           placeholder={label}
           className={classNames(
-            'rounded-xl border-2 border-grayscale-200 focus:border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all',
+            'rounded-xl border-[1px] border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-gray-700',
             IconBefore && 'pl-12',
           )}
           ref={ref}
@@ -41,7 +41,7 @@ export const Textarea = forwardRef(
     <>
       <Label htmlFor={props.name || props.id}>{props.label}</Label>
       <textarea
-        className="rounded-xl border-2 border-grayscale-200 focus:border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all"
+        className="rounded-xl border-2 border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-gray-700"
         ref={ref}
         {...props}
       />
