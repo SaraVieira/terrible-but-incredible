@@ -15,6 +15,8 @@ export const defaultMovieSelect = {
         posters: true,
       },
     },
+    cast: true,
+    crew: true,
     videos: true,
     external_ids: true,
     release_dates: true,

@@ -14,7 +14,7 @@ import '../styles/global.css';
 import { getAbsoluteUrl } from '~/utils/absolute-url';
 
 export type NextPageWithLayout = NextPage & {
-  layout?: ReactNode;
+  Layout?: ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {
@@ -30,7 +30,7 @@ const MyApp = ((props: AppPropsWithLayout) => {
 }) as AppType;
 
 const App = (({ Component, pageProps }: AppPropsWithLayout) => {
-  const Layout = (Component.layout || DefaultLayout) as any;
+  const Layout = (Component.Layout || DefaultLayout) as any;
 
   return (
     <Layout>
