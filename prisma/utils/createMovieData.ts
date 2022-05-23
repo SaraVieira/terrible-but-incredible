@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import seed from './seed.json';
 
 const api_key = `?api_key=${process.env.TMDB_API_KEY}`;
 const base = 'https://api.themoviedb.org/3/movie';
@@ -28,7 +29,7 @@ export const createMovieData = async (id): Promise<any> => {
     (rsp) => rsp.json(),
   )) as { results: Record<string, unknown> };
 
-  console.log('getting movie ' + id);
+  console.log('getting movie ' + seed.find((m) => m.id)?.title);
 
   return {
     ...details,
