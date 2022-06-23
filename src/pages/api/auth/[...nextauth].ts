@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
+import { createHash } from 'crypto';
 import { prisma } from '~/server/prisma';
 import { verifyPassword } from '~/utils/password';
 import { NewSession } from '~/utils/types';
@@ -17,8 +17,21 @@ export default NextAuth({
         },
       });
       if (!idUser) return { expires: new Date().toDateString() };
-      session.user.id = idUser.id;
-      return session;
+
+      const hashedEmail = createHash('md5')
+        // @ts-ignore
+        .update(idUser.email)
+        .digest('hex') as string;
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          image: idUser.image,
+          id: idUser.id,
+          name: idUser.name,
+          gravatarImage: `https://www.gravatar.com/avatar/${hashedEmail}`,
+        },
+      };
     },
   },
   providers: [

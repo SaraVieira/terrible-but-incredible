@@ -73,7 +73,6 @@ export const movieRouter = createRouter()
       };
     },
   })
-
   .query('byId', {
     input: z.object({
       id: z.string(),

@@ -66,15 +66,12 @@ export const MovieInfo = (movie) => {
   const info = getInfo(movie);
 
   return (
-    <div className="flex sm:justify-end w-full">
-      <ul
-        role="list"
-        className="divide-y divide-gray-200 sm:w-[320px] w-full mt-12 sm:mt-0"
-      >
+    <div className=" w-full">
+      <ul role="list" className="divide-y divide-gray-200  mt-12 sm:mt-0">
         <h2 className="text-base font-bold mb-3">Info</h2>
         {info.map((i) => (
           <li className="py-4" key={i.label}>
-            <div className="flex space-x-3">
+            <div className="flex">
               <div className="flex-1 space-y-1">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium">{i.label}</h3>

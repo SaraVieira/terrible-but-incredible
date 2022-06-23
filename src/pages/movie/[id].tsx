@@ -1,16 +1,17 @@
 import { useRouter } from 'next/router';
-import ReactCountryFlag from 'react-country-flag';
 import { Star } from '~/components/Icons';
 import { SinglePageLayout } from '~/components/SinglePageLayout';
 import { PATHS } from '~/utils/constants/TMDB';
 import { useMovie } from '~/utils/hooks/useMovies';
-import Tippy from '@tippyjs/react';
-import { Socials } from '~/components/Socials';
+
 import { MovieInfo } from '~/components/MovieInfo';
 import { MoviePersonnel } from '~/components/MoviePersonnel';
+import AddComment from '~/components/AddComment';
+import { useComments } from '~/utils/hooks/useComments';
 
 const MovieViewPage = () => {
   const id = useRouter().query.id as string;
+  const { data: comments } = useComments({ id });
   const { isLoading, data: movie } = useMovie({ id });
   const poster =
     PATHS.secure_base_url +
@@ -63,7 +64,12 @@ const MovieViewPage = () => {
           <MoviePersonnel people={movie.cast} title="Cast" />
           <MoviePersonnel people={movie.crew} title="Crew" />
         </div>
-        <MovieInfo {...movie} />
+        <div className="flex sm:align-end sm:w-[320px] w-full flex-col justify-self-end">
+          <MovieInfo {...movie} />
+          {(comments || []).map((a) => a.comment)}
+          <h2 className="text-base font-bold mb-3">Comments</h2>
+          <AddComment id={movie.id} />
+        </div>
       </section>
     </>
   );

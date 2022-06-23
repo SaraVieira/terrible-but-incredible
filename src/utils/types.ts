@@ -6,6 +6,7 @@ export type NewSession = {
     email?: string | null;
     image?: string | null;
     id?: string | null;
+    gravatarImage?: string | null;
   };
   expires: ISODateString;
 };

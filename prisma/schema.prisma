@@ -11,38 +11,40 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  password      String
-  emailVerified DateTime?
-  resetToken    String
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  ratings       Rating[]
-  comments      Comment[]
-  watched       String[]
-  watchList     String[]
+  id              String              @id @default(cuid())
+  name            String?
+  email           String?             @unique
+  password        String
+  emailVerified   DateTime?
+  resetToken      String
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  ratings         Rating[]
+  comments        Comment[]
+  watched         WatchedMovies[]
+  watchListMovies WatchListedMovies[]
 }
 
 model Comment {
-  id      String  @id @default(cuid())
-  comment String
-  User    User?   @relation(fields: [userId], references: [id])
-  userId  String?
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
-  movieId String?
+  id        String   @id @default(cuid())
+  comment   String
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  Movie     Movie?   @relation(fields: [movieId], references: [id])
+  movieId   String?
+  createdAt DateTime @default(now())
 }
 
 model Rating {
-  id      String  @id @default(cuid())
-  pain    Int
-  fun     Int
-  User    User?   @relation(fields: [userId], references: [id])
-  userId  String?
-  Movie   Movie?  @relation(fields: [movieId], references: [id])
-  movieId String?
+  id        String   @id @default(cuid())
+  pain      Int
+  fun       Int
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  Movie     Movie?   @relation(fields: [movieId], references: [id])
+  movieId   String?
+  createdAt DateTime @default(now())
 }
 
 model Movie {
@@ -80,8 +82,25 @@ model Movie {
   release_dates        ReleaseDates[]
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @default(now()) @updatedAt
-  userId               String?
+  watchedBy            WatchedMovies[]
+  watchListedBy        WatchListedMovies[]
+}
 
+model WatchedMovies {
+  id      String  @id @default(uuid())
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String?
+}
+
+model WatchListedMovies {
+  id String @id @default(uuid())
+
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String?
 }
 
 model Cast {
