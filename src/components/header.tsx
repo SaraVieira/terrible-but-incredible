@@ -1,8 +1,8 @@
-import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { signOut, useSession } from "next-auth/react"
+import Link from "next/link"
 
 export const Header = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
   return (
     <header>
       <ul className="flex gap-4 max-w-[80%] w-7xl mx-auto">
@@ -20,7 +20,7 @@ export const Header = () => {
               onClick={() =>
                 signOut({
                   redirect: true,
-                  callbackUrl: '/',
+                  callbackUrl: "/",
                 })
               }
               className="underline"
@@ -35,5 +35,5 @@ export const Header = () => {
         )}
       </ul>
     </header>
-  );
-};
+  )
+}

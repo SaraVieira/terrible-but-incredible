@@ -1,11 +1,11 @@
-import create, { SetState } from 'zustand';
+import create, { SetState } from "zustand"
 
 type useSearchState = {
-  search: string;
-  setSearch: (search: string) => void;
-};
+  search: string
+  setSearch: (search: string) => void
+}
 
 export const useSearch = create((set: SetState<useSearchState>) => ({
-  search: '',
+  search: "",
   setSearch: (search: string) => set({ search }),
-}));
+}))

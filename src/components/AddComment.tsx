@@ -1,25 +1,25 @@
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-import { useCreateComment } from '~/utils/hooks/useComments';
-import { NewSession } from '~/utils/types';
-import { Textarea } from './Form';
+import { useSession } from "next-auth/react"
+import { useState } from "react"
+import { useCreateComment } from "~/utils/hooks/useComments"
+import { NewSession } from "~/utils/types"
+import { Textarea } from "./Form"
 
 export default function AddComment({ id }) {
-  const createComment = useCreateComment();
-  const [comment, setComment] = useState('');
-  const { data: session } = useSession() as { data: NewSession };
-  if (!session?.user) return null;
-  const img = session.user.image || session.user.gravatarImage;
+  const createComment = useCreateComment()
+  const [comment, setComment] = useState("")
+  const { data: session } = useSession() as { data: NewSession }
+  if (!session?.user) return null
+  const img = session.user.image || session.user.gravatarImage
 
   const addComment = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     await createComment.mutateAsync({
       userId: session.user?.id as string,
       movieId: id,
       comment,
-    });
-    setComment('');
-  };
+    })
+    setComment("")
+  }
 
   return (
     <>
@@ -29,7 +29,7 @@ export default function AddComment({ id }) {
             <img
               className="inline-block h-10 w-10 rounded-full"
               src={img}
-              alt={session.user.name || 'user'}
+              alt={session.user.name || "user"}
             />
           ) : (
             <div className="bg-[#FDB92C] text-white font-bold h-10 w-10 rounded-full flex items-center justify-center">
@@ -51,7 +51,7 @@ export default function AddComment({ id }) {
                 id="comment"
                 className="py-3 border-0 resize-none focus:ring-0"
                 placeholder="Add a comment..."
-                defaultValue={''}
+                defaultValue={""}
               />
 
               {/* Spacer element to match the height of the toolbar */}
@@ -77,5 +77,5 @@ export default function AddComment({ id }) {
         </div>
       </div>
     </>
-  );
+  )
 }

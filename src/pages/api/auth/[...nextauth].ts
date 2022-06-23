@@ -1,27 +1,27 @@
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { createHash } from 'crypto';
-import { prisma } from '~/server/prisma';
-import { verifyPassword } from '~/utils/password';
-import { NewSession } from '~/utils/types';
+import NextAuth from "next-auth"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import CredentialsProvider from "next-auth/providers/credentials"
+import { createHash } from "crypto"
+import { prisma } from "~/server/prisma"
+import { verifyPassword } from "~/utils/password"
+import { NewSession } from "~/utils/types"
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async session({ session }: { session: NewSession }): Promise<NewSession> {
-      if (!session?.user?.email) return { expires: new Date().toDateString() };
+      if (!session?.user?.email) return { expires: new Date().toDateString() }
       const idUser = await prisma.user.findUnique({
         where: {
           email: session.user.email,
         },
-      });
-      if (!idUser) return { expires: new Date().toDateString() };
+      })
+      if (!idUser) return { expires: new Date().toDateString() }
 
-      const hashedEmail = createHash('md5')
+      const hashedEmail = createHash("md5")
         // @ts-ignore
         .update(idUser.email)
-        .digest('hex') as string;
+        .digest("hex") as string
       return {
         ...session,
         user: {
@@ -31,45 +31,45 @@ export default NextAuth({
           name: idUser.name,
           gravatarImage: `https://www.gravatar.com/avatar/${hashedEmail}`,
         },
-      };
+      }
     },
   },
   providers: [
     CredentialsProvider({
       async authorize(
-        credentials: Record<'email' | 'password', string> | undefined,
+        credentials: Record<"email" | "password", string> | undefined
       ) {
         if (!credentials?.password || !credentials?.email) {
-          throw new Error('User not fund');
+          throw new Error("User not fund")
         }
         const user = await prisma.user.findFirst({
           where: {
             email: credentials.email,
           },
-        });
+        })
 
         if (!user) {
-          throw new Error('User not fund');
+          throw new Error("User not fund")
         }
 
         const isValid = await verifyPassword(
           credentials.password,
-          user.password,
-        );
+          user.password
+        )
 
         if (!isValid) {
-          throw new Error('Could not log you in!');
+          throw new Error("Could not log you in!")
         }
-        return { email: user.email };
+        return { email: user.email }
       },
-      name: 'Email & Password',
+      name: "Email & Password",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com',
+          label: "Email",
+          type: "email",
+          placeholder: "hello@example.com",
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
       },
     }),
   ],
@@ -80,7 +80,7 @@ export default NextAuth({
     // You can still force a JWT session by explicitly defining `"jwt"`.
     // When using `"database"`, the session cookie will only contain a `sessionToken` value,
     // which is used to look up the session in the database.
-    strategy: 'jwt',
+    strategy: "jwt",
 
     // Seconds - How long until an idle session expires and is no longer valid.
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -90,4 +90,4 @@ export default NextAuth({
     // Note: This option is ignored if using JSON Web Tokens
     updateAge: 24 * 60 * 60, // 24 hours
   },
-});
+})

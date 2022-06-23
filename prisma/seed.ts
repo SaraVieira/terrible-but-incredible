@@ -4,45 +4,45 @@
  * @link https://www.prisma.io/docs/guides/database/seed-database
  */
 
-import { PrismaClient } from '@prisma/client';
-import seeds from './utils/seed.json';
-import { omit } from 'lodash';
-import { createMovieData } from './utils/createMovieData';
-const prisma = new PrismaClient();
+import { PrismaClient } from "@prisma/client"
+import seeds from "./utils/seed.json"
+import { omit } from "lodash"
+import { createMovieData } from "./utils/createMovieData"
+const prisma = new PrismaClient()
 
 function sleep(ms) {
   return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+    setTimeout(resolve, ms)
+  })
 }
-const removeid = (arr) => arr.map((obj) => omit(obj, 'id'));
+const removeid = (arr) => arr.map((obj) => omit(obj, "id"))
 async function main() {
   const a = seeds.map(async (seed) => {
     const exists = await prisma.movie.findFirst({
       where: {
         tmdb_id: seed.id,
       },
-    });
+    })
 
-    if (exists) return;
-    const movie = await createMovieData(seed.id);
+    if (exists) return
+    const movie = await createMovieData(seed.id)
     return prisma.movie.create({
       // @ts-ignore
       data: {
         ...omit(movie, [
           `belongs_to_collection`,
-          'id',
-          'genres',
-          'production_countries',
-          'spoken_languages',
-          'production_companies',
-          'images',
-          'external_ids',
-          'release_dates',
-          'videos',
-          'cast',
-          'adult',
-          'crew',
+          "id",
+          "genres",
+          "production_countries",
+          "spoken_languages",
+          "production_companies",
+          "images",
+          "external_ids",
+          "release_dates",
+          "videos",
+          "cast",
+          "adult",
+          "crew",
         ]),
         release_date: new Date(movie.release_date),
         release_dates: {
@@ -51,8 +51,8 @@ async function main() {
               .map((date) =>
                 date.release_dates.flatMap((b) => ({
                   iso_3166_1: date.iso_3166_1,
-                  ...omit(b, 'id'),
-                })),
+                  ...omit(b, "id"),
+                }))
               )
               .flat()
               .filter((c) => c.certification),
@@ -111,7 +111,7 @@ async function main() {
           },
         },
         external_ids: {
-          create: omit(movie.external_ids, 'id'),
+          create: omit(movie.external_ids, "id"),
         },
         genres: {
           createMany: {
@@ -119,17 +119,17 @@ async function main() {
           },
         },
       },
-    });
-  });
+    })
+  })
 
-  Promise.all(a);
+  Promise.all(a)
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })

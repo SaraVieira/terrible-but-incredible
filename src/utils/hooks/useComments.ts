@@ -1,18 +1,18 @@
-import { trpc } from '../trpc';
+import { trpc } from "../trpc"
 
 export const useCreateComment = () => {
-  const utils = trpc.useContext();
-  const addComment = trpc.useMutation('comments.add', {
+  const utils = trpc.useContext()
+  const addComment = trpc.useMutation("comments.add", {
     async onSuccess() {
-      await utils.invalidateQueries(['comments.all']);
+      await utils.invalidateQueries(["comments.all"])
     },
-  });
+  })
 
-  return addComment;
-};
+  return addComment
+}
 
 export const useComments = ({ id }: { id: string }) => {
-  const comments = trpc.useQuery(['comments.all', { movieId: id }]);
+  const comments = trpc.useQuery(["comments.all", { movieId: id }])
 
-  return comments;
-};
+  return comments
+}

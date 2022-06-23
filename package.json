@@ -16,22 +16,18 @@
     "lint-fix": "yarn lint --fix",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "postinstall": "prisma generate",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "prettier --loglevel warn --write \"**/*.{ts,tsx,css,md}\"",
+    "posttest": "npm run format"
   },
   "prisma": {
     "seed": "yarn ts-node prisma/seed.ts"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "trailingComma": "all",
-    "singleQuote": true
   },
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
     "@next-auth/prisma-adapter": "^1.0.3",
     "@prisma/client": "^3.15.2",
-    "@radix-ui/react-avatar": "^0.1.4",
     "@tailwindcss/forms": "^0.5.1",
     "@tippyjs/react": "^4.2.6",
     "@trpc/client": "^9.23.2",
@@ -71,8 +67,6 @@
     "add": "^2.0.6",
     "eslint": "^8.15.0",
     "eslint-config-next": "^12.1.6",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "husky": ">=8.0.1",

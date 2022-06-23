@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router';
-import { Button } from '~/components/Button';
-import { Feedback } from '~/components/Feedback';
-import { Input } from '~/components/Form';
-import { MailIcon, PasswordIcon } from '~/components/Icons';
-import { PasswordMeter } from '~/components/PasswordMetter';
-import { useSignup } from '~/utils/hooks/useRegistration';
+import { useRouter } from "next/router"
+import { Button } from "~/components/Button"
+import { Feedback } from "~/components/Feedback"
+import { Input } from "~/components/Form"
+import { MailIcon, PasswordIcon } from "~/components/Icons"
+import { PasswordMeter } from "~/components/PasswordMetter"
+import { useSignup } from "~/utils/hooks/useRegistration"
 
 const SignUp = () => {
-  const router = useRouter();
+  const router = useRouter()
   const {
     createUser,
     error,
@@ -16,9 +16,9 @@ const SignUp = () => {
     setRepeatPassword,
     password,
     isFilledIn,
-  } = useSignup();
+  } = useSignup()
 
-  const createAccount = (e) => createUser(e, router);
+  const createAccount = (e) => createUser(e, router)
 
   return (
     <>
@@ -64,7 +64,7 @@ const SignUp = () => {
         </Button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

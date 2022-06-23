@@ -1,4 +1,4 @@
-import { PATHS } from '~/utils/constants/TMDB';
+import { PATHS } from "~/utils/constants/TMDB"
 
 export const MoviePersonnel = ({ people, title }) => {
   return (
@@ -41,5 +41,5 @@ export const MoviePersonnel = ({ people, title }) => {
         ))}
       </ul>
     </>
-  );
-};
+  )
+}

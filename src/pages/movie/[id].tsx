@@ -1,28 +1,26 @@
-import { useRouter } from 'next/router';
-import { Star } from '~/components/Icons';
-import { SinglePageLayout } from '~/components/SinglePageLayout';
-import { PATHS } from '~/utils/constants/TMDB';
-import { useMovie } from '~/utils/hooks/useMovies';
+import { useRouter } from "next/router"
+import { Star } from "~/components/Icons"
+import { SinglePageLayout } from "~/components/SinglePageLayout"
+import { PATHS } from "~/utils/constants/TMDB"
+import { useMovie } from "~/utils/hooks/useMovies"
 
-import { MovieInfo } from '~/components/MovieInfo';
-import { MoviePersonnel } from '~/components/MoviePersonnel';
-import AddComment from '~/components/AddComment';
-import { useComments } from '~/utils/hooks/useComments';
+import { MovieInfo } from "~/components/MovieInfo"
+import { MoviePersonnel } from "~/components/MoviePersonnel"
+import AddComment from "~/components/AddComment"
+import { useComments } from "~/utils/hooks/useComments"
 
 const MovieViewPage = () => {
-  const id = useRouter().query.id as string;
-  const { data: comments } = useComments({ id });
-  const { isLoading, data: movie } = useMovie({ id });
+  const id = useRouter().query.id as string
+  const { data: comments } = useComments({ id })
+  const { isLoading, data: movie } = useMovie({ id })
   const poster =
-    PATHS.secure_base_url +
-    PATHS.backdrop_sizes.original +
-    movie?.backdrop_path;
+    PATHS.secure_base_url + PATHS.backdrop_sizes.original + movie?.backdrop_path
 
   if (isLoading || !movie) {
-    return <>Loading...</>;
+    return <>Loading...</>
   }
-  const genres = movie?.genres.map((genre) => genre.name).join(', ');
-  const year = new Date(movie?.release_date).getFullYear();
+  const genres = movie?.genres.map((genre) => genre.name).join(", ")
+  const year = new Date(movie?.release_date).getFullYear()
 
   return (
     <>
@@ -31,7 +29,7 @@ const MovieViewPage = () => {
           className="absolute inset-0 "
           style={{
             background:
-              'linear-gradient(0deg, #FFFFFF 15.02%, rgba(255, 255, 255, 0.62) 33.43%, rgba(255, 255, 255, 0.22) 57.27%)',
+              "linear-gradient(0deg, #FFFFFF 15.02%, rgba(255, 255, 255, 0.62) 33.43%, rgba(255, 255, 255, 0.22) 57.27%)",
           }}
         ></div>
         <img src={poster} alt={movie?.title} className="max-h-full w-full" />
@@ -72,7 +70,7 @@ const MovieViewPage = () => {
         </div>
       </section>
     </>
-  );
-};
-MovieViewPage.Layout = SinglePageLayout;
-export default MovieViewPage;
+  )
+}
+MovieViewPage.Layout = SinglePageLayout
+export default MovieViewPage

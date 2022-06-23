@@ -1,35 +1,35 @@
-import { Genre, Movie } from '@prisma/client';
+import { Genre, Movie } from "@prisma/client"
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react"
 
-import { MovieCard } from '~/components/MovieCard';
-import { Search } from '~/components/Search';
+import { MovieCard } from "~/components/MovieCard"
+import { Search } from "~/components/Search"
 
-import { useMovies } from '~/utils/hooks/useMovies';
-import { useSearch } from '~/utils/hooks/useSearch';
+import { useMovies } from "~/utils/hooks/useMovies"
+import { useSearch } from "~/utils/hooks/useSearch"
 
 const IndexPage = () => {
-  const { search } = useSearch();
-  const movies = useMovies({ query: search });
-  const loadingRef = useRef<any>();
+  const { search } = useSearch()
+  const movies = useMovies({ query: search })
+  const loadingRef = useRef<any>()
 
   useEffect(() => {
     if (loadingRef?.current) {
       const options = {
         root: null,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 1.0,
-      };
+      }
 
       const observer = new IntersectionObserver((entities) => {
-        if (!entities || !entities[0]) return null;
+        if (!entities || !entities[0]) return null
         if (entities[0].isIntersecting && !movies.isFetchingNextPage) {
-          movies.fetchNextPage();
+          movies.fetchNextPage()
         }
-      }, options);
-      observer.observe(loadingRef.current);
+      }, options)
+      observer.observe(loadingRef.current)
     }
-  }, [movies]);
+  }, [movies])
 
   return (
     <>
@@ -45,10 +45,10 @@ const IndexPage = () => {
       </div>
       {movies.hasNextPage && <div ref={loadingRef}>Loading</div>}
     </>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
 
 /**
  * If you want to statically render this page

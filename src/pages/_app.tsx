@@ -1,44 +1,44 @@
-import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
-import { loggerLink } from '@trpc/client/links/loggerLink';
-import { withTRPC } from '@trpc/next';
-import { NextPage } from 'next';
-import { AppProps } from 'next/app';
-import { AppType } from 'next/dist/shared/lib/utils';
-import { ReactNode } from 'react';
-import superjson from 'superjson';
-import { DefaultLayout } from '~/components/DefaultLayout';
-import { AppRouter } from '~/server/routers/_app';
-import { SSRContext } from '~/utils/trpc';
-import { SessionProvider } from 'next-auth/react';
-import '../styles/global.css';
-import { getAbsoluteUrl } from '~/utils/absolute-url';
-import 'tippy.js/dist/tippy.css'; // optional
+import { httpBatchLink } from "@trpc/client/links/httpBatchLink"
+import { loggerLink } from "@trpc/client/links/loggerLink"
+import { withTRPC } from "@trpc/next"
+import { NextPage } from "next"
+import { AppProps } from "next/app"
+import { AppType } from "next/dist/shared/lib/utils"
+import { ReactNode } from "react"
+import superjson from "superjson"
+import { DefaultLayout } from "~/components/DefaultLayout"
+import { AppRouter } from "~/server/routers/_app"
+import { SSRContext } from "~/utils/trpc"
+import { SessionProvider } from "next-auth/react"
+import "../styles/global.css"
+import { getAbsoluteUrl } from "~/utils/absolute-url"
+import "tippy.js/dist/tippy.css" // optional
 
 export type NextPageWithLayout = NextPage & {
-  Layout?: ReactNode;
-};
+  Layout?: ReactNode
+}
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
+  Component: NextPageWithLayout
+}
 
 const MyApp = ((props: AppPropsWithLayout) => {
   return (
     <SessionProvider>
       <App {...props} />
     </SessionProvider>
-  );
-}) as AppType;
+  )
+}) as AppType
 
 const App = (({ Component, pageProps }: AppPropsWithLayout) => {
-  const Layout = (Component.Layout || DefaultLayout) as any;
+  const Layout = (Component.Layout || DefaultLayout) as any
 
   return (
     <Layout>
       <Component {...pageProps} />
     </Layout>
-  );
-}) as AppType;
+  )
+}) as AppType
 
 export default withTRPC<AppRouter>({
   ssr: true,
@@ -47,8 +47,8 @@ export default withTRPC<AppRouter>({
       links: [
         loggerLink({
           enabled: (opts) =>
-            process.env.NODE_ENV === 'development' ||
-            (opts.direction === 'down' && opts.result instanceof Error),
+            process.env.NODE_ENV === "development" ||
+            (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchLink({
           url: `${getAbsoluteUrl()}/api/trpc`,
@@ -57,24 +57,24 @@ export default withTRPC<AppRouter>({
       transformer: superjson,
 
       queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
-    };
+    }
   },
   responseMeta(opts) {
-    const ctx = opts.ctx as SSRContext;
+    const ctx = opts.ctx as SSRContext
 
     if (ctx.status) {
       return {
         status: ctx.status,
-      };
+      }
     }
 
-    const error = opts.clientErrors[0];
+    const error = opts.clientErrors[0]
     if (error) {
       return {
         status: error.data?.httpStatus ?? 500,
-      };
+      }
     }
 
-    return {};
+    return {}
   },
-})(MyApp);
+})(MyApp)

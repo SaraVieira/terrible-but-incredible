@@ -1,4 +1,4 @@
-import { trpc } from '../trpc';
+import { trpc } from "../trpc"
 
 export const useMovies = ({
   query,
@@ -6,7 +6,7 @@ export const useMovies = ({
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     trpc.useInfiniteQuery(
       [
-        'movies.all',
+        "movies.all",
         {
           limit: 10,
           query: query?.toString(),
@@ -14,8 +14,8 @@ export const useMovies = ({
       ],
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-      },
-    );
+      }
+    )
 
   // prefetch all posts for instant navigation
   // useEffect(() => {
@@ -30,11 +30,11 @@ export const useMovies = ({
     hasNextPage,
     isLoading,
     isFetchingNextPage,
-  };
-};
+  }
+}
 
 export const useMovie = ({ id }) => {
-  const movieQuery = trpc.useQuery(['movies.byId', { id }]);
+  const movieQuery = trpc.useQuery(["movies.byId", { id }])
 
-  return movieQuery;
-};
+  return movieQuery
+}

@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import Link from 'next/link';
-import React, { ButtonHTMLAttributes } from 'react';
+import classNames from "classnames"
+import Link from "next/link"
+import React, { ButtonHTMLAttributes } from "react"
 
 type Props = {
-  loading?: boolean;
-  variant?: 'primary' | 'secondary';
-  children: React.ReactNode;
-  href?: string;
-} & ButtonHTMLAttributes<any>;
+  loading?: boolean
+  variant?: "primary" | "secondary"
+  children: React.ReactNode
+  href?: string
+} & ButtonHTMLAttributes<any>
 
 const Loading = () => (
   <svg
@@ -26,23 +26,23 @@ const Loading = () => (
       fill="#fff"
     />
   </svg>
-);
+)
 
 export const Button = ({
   loading,
   children,
-  variant = 'primary',
-  className = '',
+  variant = "primary",
+  className = "",
   href,
   ...props
 }: Props) => {
-  const disabled = props.disabled || loading;
+  const disabled = props.disabled || loading
   const classes = {
     primary:
-      'bg-primary-500 rounded-md h-[56px] disabled:bg-primary-200 text-white text-bodyM font-bold',
+      "bg-primary-500 rounded-md h-[56px] disabled:bg-primary-200 text-white text-bodyM font-bold",
     secondary:
-      'text-red-600 rounded-md h-[56px] disabled:opacity-50 text-bodyM font-bold',
-  };
+      "text-red-600 rounded-md h-[56px] disabled:opacity-50 text-bodyM font-bold",
+  }
 
   if (href) {
     return (
@@ -50,8 +50,8 @@ export const Button = ({
         <a
           className={classNames(
             classes[variant],
-            'w-full text-center block ',
-            className,
+            "w-full text-center block ",
+            className
           )}
           {...props}
         >
@@ -59,16 +59,16 @@ export const Button = ({
           {children}
         </a>
       </Link>
-    );
+    )
   }
   return (
     <button
-      className={classNames(classes[variant], 'w-full', className)}
+      className={classNames(classes[variant], "w-full", className)}
       {...props}
       disabled={disabled}
     >
       {loading && <Loading />}
       {children}
     </button>
-  );
-};
+  )
+}

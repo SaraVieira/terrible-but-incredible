@@ -1,9 +1,9 @@
-import { z } from 'zod';
-import { createRouter } from '~/server/createRouter';
-import { prisma } from '~/server/prisma';
+import { z } from "zod"
+import { createRouter } from "~/server/createRouter"
+import { prisma } from "~/server/prisma"
 
 export const commentsRouter = createRouter()
-  .query('all', {
+  .query("all", {
     input: z.object({
       movieId: z.string(),
     }),
@@ -12,13 +12,13 @@ export const commentsRouter = createRouter()
         where: {
           movieId: input.movieId,
         },
-      });
+      })
 
-      return comments;
+      return comments
     },
   })
 
-  .mutation('add', {
+  .mutation("add", {
     input: z.object({
       userId: z.string(),
       movieId: z.string(),
@@ -31,7 +31,7 @@ export const commentsRouter = createRouter()
           userId: input.userId,
           comment: input.comment,
         },
-      });
-      return comment;
+      })
+      return comment
     },
-  });
+  })

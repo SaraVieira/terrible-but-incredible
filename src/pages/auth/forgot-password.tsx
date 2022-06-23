@@ -1,39 +1,39 @@
-import { useState } from 'react';
-import { Button } from '~/components/Button';
-import { Feedback } from '~/components/Feedback';
-import { Input } from '~/components/Form';
-import { MailIcon } from '~/components/Icons';
+import { useState } from "react"
+import { Button } from "~/components/Button"
+import { Feedback } from "~/components/Feedback"
+import { Input } from "~/components/Form"
+import { MailIcon } from "~/components/Icons"
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [email, setEmail] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const forgotPassword = async (e: any) => {
-    setError('');
-    setSuccess(false);
-    setLoading(true);
-    e.preventDefault();
+    setError("")
+    setSuccess(false)
+    setLoading(true)
+    e.preventDefault()
 
     try {
-      const data = await fetch('/api/auth/reset-password', {
-        method: 'POST',
+      const data = await fetch("/api/auth/reset-password", {
+        method: "POST",
         body: JSON.stringify({
           email,
         }),
-      }).then((rsp) => rsp.json());
+      }).then((rsp) => rsp.json())
 
       if (!data.ok) {
-        setError(data.message || 'Something went wrong!');
+        setError(data.message || "Something went wrong!")
       } else {
-        setSuccess(true);
+        setSuccess(true)
       }
     } catch {
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <>
@@ -67,7 +67,7 @@ const ResetPassword = () => {
         </Button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default ResetPassword;
+export default ResetPassword

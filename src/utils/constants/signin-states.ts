@@ -1,3 +1,3 @@
 export const STATES = {
-  PASSWORD_UPDATED: 'password-updated',
-};
+  PASSWORD_UPDATED: "password-updated",
+}

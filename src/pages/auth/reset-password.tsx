@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import { Button } from '~/components/Button';
-import { Feedback } from '~/components/Feedback';
-import { Input } from '~/components/Form';
-import { PasswordIcon } from '~/components/Icons';
-import { PasswordMeter } from '~/components/PasswordMetter';
+import { useRouter } from "next/router"
+import { Button } from "~/components/Button"
+import { Feedback } from "~/components/Feedback"
+import { Input } from "~/components/Form"
+import { PasswordIcon } from "~/components/Icons"
+import { PasswordMeter } from "~/components/PasswordMetter"
 
-import { useResetPassword } from '~/utils/hooks/useRegistration';
+import { useResetPassword } from "~/utils/hooks/useRegistration"
 
 const ResetPassword = () => {
-  const router = useRouter();
+  const router = useRouter()
   const {
     updatePassword,
     error,
@@ -16,7 +16,7 @@ const ResetPassword = () => {
     password,
     setRepeatPassword,
     isFilledIn,
-  } = useResetPassword();
+  } = useResetPassword()
 
   return (
     <>
@@ -58,7 +58,7 @@ const ResetPassword = () => {
         </Button>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default ResetPassword;
+export default ResetPassword

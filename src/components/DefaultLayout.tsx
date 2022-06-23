@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { Header } from './header';
+import { ReactNode } from "react"
+import { ReactQueryDevtools } from "react-query/devtools"
+import { Header } from "./header"
 
-type DefaultLayoutProps = { children: ReactNode };
+type DefaultLayoutProps = { children: ReactNode }
 
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
@@ -13,9 +13,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
           {children}
         </main>
       </div>
-      {process.env.NODE_ENV !== 'production' && (
+      {process.env.NODE_ENV !== "production" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
     </>
-  );
-};
+  )
+}

@@ -1,13 +1,13 @@
-import { Genre, Movie } from '@prisma/client';
-import Link from 'next/link';
-import { PATHS } from '~/utils/constants/TMDB';
+import { Genre, Movie } from "@prisma/client"
+import Link from "next/link"
+import { PATHS } from "~/utils/constants/TMDB"
 
 export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
   const bgImage = movie.backdrop_path
     ? PATHS.secure_base_url + PATHS.backdrop_sizes.w780 + movie.backdrop_path
-    : PATHS.secure_base_url + PATHS.poster_sizes.w780 + movie.poster_path;
-  const genres = movie.genres.map((genre) => genre.name).join(', ');
-  const year = new Date(movie.release_date).getFullYear();
+    : PATHS.secure_base_url + PATHS.poster_sizes.w780 + movie.poster_path
+  const genres = movie.genres.map((genre) => genre.name).join(", ")
+  const year = new Date(movie.release_date).getFullYear()
   return (
     <Link href={`/movie/${movie.id}`} key={movie.id}>
       <a className="sm:w-[383px] w-full">
@@ -17,7 +17,7 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
               className="inset-0 absolute"
               style={{
                 background:
-                  'linear-gradient(360deg, #000000 4.78%, rgba(0, 0, 0, 0.79) 34.92%, rgba(0, 0, 0, 0.13) 61.74%)',
+                  "linear-gradient(360deg, #000000 4.78%, rgba(0, 0, 0, 0.79) 34.92%, rgba(0, 0, 0, 0.13) 61.74%)",
               }}
             ></div>
             <div
@@ -34,8 +34,8 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
               </p>
             </div>
           </div>
-        </article>{' '}
+        </article>{" "}
       </a>
     </Link>
-  );
-};
+  )
+}

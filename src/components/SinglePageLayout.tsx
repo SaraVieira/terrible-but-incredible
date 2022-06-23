@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { Header } from './header';
+import { ReactNode } from "react"
+import { ReactQueryDevtools } from "react-query/devtools"
+import { Header } from "./header"
 
-type DefaultLayoutProps = { children: ReactNode };
+type DefaultLayoutProps = { children: ReactNode }
 
 export const SinglePageLayout = ({ children }: DefaultLayoutProps) => {
   return (
@@ -11,9 +11,9 @@ export const SinglePageLayout = ({ children }: DefaultLayoutProps) => {
         <Header />
         <main className="mt-8 mb-16 h-full">{children}</main>
       </div>
-      {process.env.NODE_ENV !== 'production' && (
+      {process.env.NODE_ENV !== "production" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
     </>
-  );
-};
+  )
+}

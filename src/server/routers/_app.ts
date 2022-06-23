@@ -1,16 +1,16 @@
-import { createRouter } from '../createRouter';
-import { movieRouter } from './movie';
-import superjson from 'superjson';
-import { commentsRouter } from './comment';
+import { createRouter } from "../createRouter"
+import { movieRouter } from "./movie"
+import superjson from "superjson"
+import { commentsRouter } from "./comment"
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .query('healthz', {
+  .query("healthz", {
     async resolve() {
-      return 'yay!';
+      return "yay!"
     },
   })
-  .merge('movies.', movieRouter)
-  .merge('comments.', commentsRouter);
+  .merge("movies.", movieRouter)
+  .merge("comments.", commentsRouter)
 
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter

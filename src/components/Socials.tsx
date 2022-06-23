@@ -1,18 +1,12 @@
-import { ExternalIds } from '@prisma/client';
-import {
-  Facebook,
-  IMDB,
-  Instagram,
-  Twitter,
-  Website,
-} from '~/components/Icons';
+import { ExternalIds } from "@prisma/client"
+import { Facebook, IMDB, Instagram, Twitter, Website } from "~/components/Icons"
 
 export const Socials = ({
   values,
   website,
 }: {
-  values: ExternalIds;
-  website: string;
+  values: ExternalIds
+  website: string
 }) => (
   <div className="flex gap-3">
     {website && (
@@ -57,4 +51,4 @@ export const Socials = ({
       </a>
     )}
   </div>
-);
+)

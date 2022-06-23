@@ -1,19 +1,19 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router"
 
-import { Input } from '~/components/Form';
+import { Input } from "~/components/Form"
 
-import { Button } from '~/components/Button';
-import Link from 'next/link';
-import { useSignIn } from '~/utils/hooks/useRegistration';
-import { redirectIfAuthenticated } from '~/utils/session';
-import { Feedback } from '~/components/Feedback';
-import { STATES } from '~/utils/constants/signin-states';
-import { MailIcon, PasswordIcon } from '~/components/Icons';
+import { Button } from "~/components/Button"
+import Link from "next/link"
+import { useSignIn } from "~/utils/hooks/useRegistration"
+import { redirectIfAuthenticated } from "~/utils/session"
+import { Feedback } from "~/components/Feedback"
+import { STATES } from "~/utils/constants/signin-states"
+import { MailIcon, PasswordIcon } from "~/components/Icons"
 
 function SignIn() {
   const { isFilledIn, setPassword, setEmail, error, signIn, signingIn } =
-    useSignIn();
-  const router = useRouter();
+    useSignIn()
+  const router = useRouter()
 
   return (
     <>
@@ -60,7 +60,7 @@ function SignIn() {
         </Button>
       </form>
       <p className=" text-center text-grayscale-500 pt-5">
-        Don{'’'}t have an account?{' '}
+        Don{"’"}t have an account?{" "}
         <Button
           variant="secondary"
           className="font-normal inline"
@@ -70,8 +70,8 @@ function SignIn() {
         </Button>
       </p>
     </>
-  );
+  )
 }
-export const getServerSideProps = redirectIfAuthenticated;
+export const getServerSideProps = redirectIfAuthenticated
 
-export default SignIn;
+export default SignIn
