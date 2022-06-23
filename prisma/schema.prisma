@@ -88,7 +88,7 @@ model Cast {
   id                   String  @id @default(uuid())
   adult                Boolean
   gender               Int
-  known_for_department String
+  known_for_department String?
   name                 String
   original_name        String
   popularity           Float
