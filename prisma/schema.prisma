@@ -10,8 +10,45 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String
+  emailVerified DateTime?
+  resetToken    String
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  ratings       Rating[]
+  comments      Comment[]
+  watched       String[]
+  watchList     String[]
+}
+
+model Comment {
+  id      String  @id @default(cuid())
+  comment String
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String?
+}
+
+model Rating {
+  id      String  @id @default(cuid())
+  pain    Int
+  fun     Int
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String?
+  Movie   Movie?  @relation(fields: [movieId], references: [id])
+  movieId String?
+}
+
 model Movie {
   id                   String              @id @default(uuid())
+  ratings              Rating[]
+  comments             Comment[]
   tmdb_id              Int?
   backdrop_path        String?
   budget               Int?
@@ -43,6 +80,8 @@ model Movie {
   release_dates        ReleaseDates[]
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @default(now()) @updatedAt
+  userId               String?
+
 }
 
 model Cast {
@@ -230,16 +269,4 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  password      String
-  emailVerified DateTime?
-  resetToken    String
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
 }

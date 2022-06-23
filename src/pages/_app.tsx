@@ -12,6 +12,7 @@ import { SSRContext } from '~/utils/trpc';
 import { SessionProvider } from 'next-auth/react';
 import '../styles/global.css';
 import { getAbsoluteUrl } from '~/utils/absolute-url';
+import 'tippy.js/dist/tippy.css'; // optional
 
 export type NextPageWithLayout = NextPage & {
   Layout?: ReactNode;
