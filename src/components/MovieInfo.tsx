@@ -1,4 +1,5 @@
 import Tippy from "@tippyjs/react"
+import { omit } from "lodash"
 import ReactCountryFlag from "react-country-flag"
 import { Socials } from "./Socials"
 
@@ -12,11 +13,24 @@ const getInfo = (movie) => {
       label: "Runtime",
       value: (movie.runtime / 60).toFixed(1) + " hours",
     },
-    {
+  ]
+
+  if (movie.title !== movie.original_title) {
+    info.push({
+      label: "Original Title",
+      value: movie.original_title,
+    })
+  }
+  if (
+    movie.homepage ||
+    Object.values(omit(movie.external_ids, ["id", "movieId"])).filter((e) => e)
+      .length
+  ) {
+    info.push({
       label: "Socials",
       value: <Socials values={movie.external_ids} website={movie.homepage} />,
-    },
-  ]
+    })
+  }
 
   if (movie.release_dates.length) {
     info.push({

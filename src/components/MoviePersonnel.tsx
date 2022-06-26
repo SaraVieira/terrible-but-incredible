@@ -14,7 +14,7 @@ export const MoviePersonnel = ({ people, title }) => {
       <h2 className="text-base font-bold mb-3 mt-6">{title}</h2>
       <ul
         className="flex gap-6 flex-wrap overflow-hidden"
-        style={{ height: open ? "auto" : 265 }}
+        style={{ height: open ? "auto" : 268 }}
       >
         {people.map((person) => (
           <li key={person.id} className="text-center w-16">
@@ -51,18 +51,20 @@ export const MoviePersonnel = ({ people, title }) => {
           </li>
         ))}
       </ul>
-      <Button
-        onClick={() => setOpen((o) => !o)}
-        variant="secondary"
-        className="flex gap-2 justify-center items-center"
-      >
-        See {open ? "Less" : "More"}
-        {open ? (
-          <ChevronUpIcon className="w-5 h-5" />
-        ) : (
-          <ChevronDownIcon className="w-5 h-5" />
-        )}
-      </Button>
+      {people.length > 8 && (
+        <Button
+          onClick={() => setOpen((o) => !o)}
+          variant="secondary"
+          className="flex gap-2 justify-center items-center"
+        >
+          See {open ? "Less" : "More"}
+          {open ? (
+            <ChevronUpIcon className="w-5 h-5" />
+          ) : (
+            <ChevronDownIcon className="w-5 h-5" />
+          )}
+        </Button>
+      )}
     </>
   )
 }

@@ -4,6 +4,7 @@ import { Gallery, Item } from "react-photoswipe-gallery"
 import { PATHS } from "~/utils/constants/TMDB"
 
 export const Images = ({ movie }) => {
+  if (!movie.images.length || !movie.images[0]?.posters.length) return null
   return (
     <>
       <h2 className="text-base font-bold mt-5 mb-3">Images</h2>

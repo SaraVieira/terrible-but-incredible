@@ -27,14 +27,25 @@ const MovieViewPage = () => {
   return (
     <>
       <div className="relative max-h-[80vh] overflow-hidden">
-        <div
-          className="absolute inset-0 "
-          style={{
-            background:
-              "linear-gradient(0deg, #FFFFFF 15.02%, rgba(255, 255, 255, 0.62) 33.43%, rgba(255, 255, 255, 0.22) 57.27%)",
-          }}
-        ></div>
-        <img src={poster} alt={movie?.title} className="max-h-full w-full" />
+        {movie?.backdrop_path ? (
+          <>
+            {" "}
+            <div
+              className="absolute inset-0 "
+              style={{
+                background:
+                  "linear-gradient(0deg, #FFFFFF 15.02%, rgba(255, 255, 255, 0.62) 33.43%, rgba(255, 255, 255, 0.22) 57.27%)",
+              }}
+            ></div>
+            <img
+              src={poster}
+              alt={movie?.title}
+              className="max-h-full w-full"
+            />
+          </>
+        ) : (
+          <div className="h-80 w-full" />
+        )}
         <div className="absolute bottom-12 text-center w-full">
           <h1 className="text-grayscale-900 font-bold text-2xl pb-2">
             {movie?.title}

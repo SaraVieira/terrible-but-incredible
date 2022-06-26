@@ -1,4 +1,5 @@
 export const Videos = ({ movie }) => {
+  if (!movie.videos.length) return null
   return (
     <>
       <h2 className="text-base font-bold mt-5 mb-3">Videos</h2>
