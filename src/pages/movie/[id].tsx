@@ -7,7 +7,6 @@ import { useMovie } from "~/utils/hooks/useMovies"
 import { MovieInfo } from "~/components/MovieInfo"
 import { MoviePersonnel } from "~/components/MoviePersonnel"
 import AddComment from "~/components/Comments/AddComment"
-import { useComments } from "~/utils/hooks/useComments"
 import { Comments } from "~/components/Comments/Comments"
 
 const MovieViewPage = () => {
@@ -66,7 +65,7 @@ const MovieViewPage = () => {
         <div className="flex sm:align-end sm:w-[320px] w-full flex-col justify-self-end">
           <MovieInfo {...movie} />
 
-          <h2 className="text-base font-bold mb-3">Comments</h2>
+          <h2 className="text-base font-bold mt-5 -mb-1">Comments</h2>
           <Comments id={movie.id} />
           <AddComment id={movie.id} />
         </div>

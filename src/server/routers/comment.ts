@@ -17,13 +17,13 @@ export const commentsRouter = createRouter()
           id: true,
           User: {
             select: {
-              name: true,
+              username: true,
               id: true,
               image: true,
-            }
+            },
           },
-          createdAt: true
-        }
+          createdAt: true,
+        },
       })
 
       return comments

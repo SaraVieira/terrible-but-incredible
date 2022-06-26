@@ -8,7 +8,7 @@ const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
     return
   }
-  const { email, password } = JSON.parse(req.body)
+  const { email, password, username } = JSON.parse(req.body)
   const existingUser = await prisma.user.findFirst({
     where: {
       email,
@@ -25,9 +25,10 @@ const SignUp = async (req: NextApiRequest, res: NextApiResponse) => {
   const resetTokenHashed = await hashPassword(resetToken)
   await prisma.user.create({
     data: {
-      email: email,
+      email,
       password: hashedPassword,
       resetToken: resetTokenHashed,
+      username,
     },
   })
 

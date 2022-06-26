@@ -28,7 +28,7 @@ export default NextAuth({
           ...session.user,
           image: idUser.image,
           id: idUser.id,
-          name: idUser.name,
+          username: idUser.username,
           gravatarImage: `https://www.gravatar.com/avatar/${hashedEmail}`,
         },
       }

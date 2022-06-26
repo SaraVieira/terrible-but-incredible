@@ -56,10 +56,12 @@ type useSignupState = {
   email: string
   password: string
   repeatPassword: string
+  username: string
   loading: boolean
   createUser: (e: any, router: any) => void
   setEmail: (email: string) => void
   setPassword: (password: string) => void
+  setUsername: (password: string) => void
   setRepeatPassword: (password: string) => void
   isFilledIn: () => boolean
 }
@@ -70,6 +72,7 @@ export const useSignup = create(
     email: "",
     password: "",
     repeatPassword: "",
+    username: "",
     loading: false,
     isFilledIn: (): boolean => {
       const { email, password, repeatPassword } = get()
@@ -77,10 +80,11 @@ export const useSignup = create(
       return Boolean(email && password && repeatPassword)
     },
     setPassword: (password: string) => set({ password }),
+    setUsername: (username: string) => set({ username }),
     setEmail: (email: string) => set({ email }),
     setRepeatPassword: (repeatPassword: string) => set({ repeatPassword }),
     createUser: async (e: any, router: any) => {
-      const { email, password, repeatPassword } = get()
+      const { email, password, repeatPassword, username } = get()
       set({ error: "", loading: true })
       e.preventDefault()
 
@@ -99,6 +103,7 @@ export const useSignup = create(
           body: JSON.stringify({
             email,
             password,
+            username,
           }),
         }).then((rsp) => rsp.json())
 

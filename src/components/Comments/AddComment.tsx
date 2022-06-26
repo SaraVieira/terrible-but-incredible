@@ -27,7 +27,7 @@ export default function AddComment({ id }) {
         <div className="flex-shrink-0">
           <Avatar
             image={session.user.image || session.user.gravatarImage}
-            name={session.user.name}
+            name={session.user.username}
           />
         </div>
         <div className="min-w-0 flex-1">

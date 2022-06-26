@@ -1,3 +1,4 @@
+import { UserIcon } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import { Button } from "~/components/Button"
 import { Feedback } from "~/components/Feedback"
@@ -16,6 +17,7 @@ const SignUp = () => {
     setRepeatPassword,
     password,
     isFilledIn,
+    setUsername,
   } = useSignup()
 
   const createAccount = (e) => createUser(e, router)
@@ -27,6 +29,18 @@ const SignUp = () => {
         className="max-w-[500px] m-auto p-15 h-full justify-center flex flex-col"
       >
         <h2 className="pb-8 font-bold text-2xl">Sign up</h2>
+        <div className="mb-5">
+          <Input
+            IconBefore={() => (
+              <UserIcon className="text-grayscale-400 w-6 h-6" />
+            )}
+            label="Username"
+            id="username"
+            required
+            type="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
         <div className="mb-5">
           <Input
             IconBefore={MailIcon}
