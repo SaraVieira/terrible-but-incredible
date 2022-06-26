@@ -6,12 +6,13 @@ import { useMovie } from "~/utils/hooks/useMovies"
 
 import { MovieInfo } from "~/components/MovieInfo"
 import { MoviePersonnel } from "~/components/MoviePersonnel"
-import AddComment from "~/components/AddComment"
+import AddComment from "~/components/Comments/AddComment"
 import { useComments } from "~/utils/hooks/useComments"
+import { Comments } from "~/components/Comments/Comments"
 
 const MovieViewPage = () => {
   const id = useRouter().query.id as string
-  const { data: comments } = useComments({ id })
+
   const { isLoading, data: movie } = useMovie({ id })
   const poster =
     PATHS.secure_base_url + PATHS.backdrop_sizes.original + movie?.backdrop_path
@@ -64,8 +65,9 @@ const MovieViewPage = () => {
         </div>
         <div className="flex sm:align-end sm:w-[320px] w-full flex-col justify-self-end">
           <MovieInfo {...movie} />
-          {(comments || []).map((a) => a.comment)}
+
           <h2 className="text-base font-bold mb-3">Comments</h2>
+          <Comments id={movie.id} />
           <AddComment id={movie.id} />
         </div>
       </section>

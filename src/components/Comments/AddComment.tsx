@@ -2,14 +2,14 @@ import { useSession } from "next-auth/react"
 import { useState } from "react"
 import { useCreateComment } from "~/utils/hooks/useComments"
 import { NewSession } from "~/utils/types"
-import { Textarea } from "./Form"
+import { Avatar } from "../Avatar"
+import { Textarea } from "../Form"
 
 export default function AddComment({ id }) {
   const createComment = useCreateComment()
   const [comment, setComment] = useState("")
   const { data: session } = useSession() as { data: NewSession }
   if (!session?.user) return null
-  const img = session.user.image || session.user.gravatarImage
 
   const addComment = async (e) => {
     e.preventDefault()
@@ -25,17 +25,10 @@ export default function AddComment({ id }) {
     <>
       <div className="flex items-start space-x-4 mt-4">
         <div className="flex-shrink-0">
-          {img ? (
-            <img
-              className="inline-block h-10 w-10 rounded-full"
-              src={img}
-              alt={session.user.name || "user"}
-            />
-          ) : (
-            <div className="bg-[#FDB92C] text-white font-bold h-10 w-10 rounded-full flex items-center justify-center">
-              X
-            </div>
-          )}
+          <Avatar
+            image={session.user.image || session.user.gravatarImage}
+            name={session.user.name}
+          />
         </div>
         <div className="min-w-0 flex-1">
           <form onSubmit={addComment} className="relative">

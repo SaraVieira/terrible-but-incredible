@@ -12,6 +12,18 @@ export const commentsRouter = createRouter()
         where: {
           movieId: input.movieId,
         },
+        select: {
+          comment: true,
+          id: true,
+          User: {
+            select: {
+              name: true,
+              id: true,
+              image: true,
+            }
+          },
+          createdAt: true
+        }
       })
 
       return comments
