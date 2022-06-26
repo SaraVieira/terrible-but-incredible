@@ -7,9 +7,9 @@ type DefaultLayoutProps = { children: ReactNode }
 export const SinglePageLayout = ({ children }: DefaultLayoutProps) => {
   return (
     <>
-      <div className="dark:bg-grayscale-900 min-h-screen text-[#141414] py-8 dark:text-white">
+      <div className="dark:bg-grayscale-900 min-h-screen text-[#141414] pb-8 dark:text-white">
         <Header />
-        <main className="mt-8 mb-16 h-full">{children}</main>
+        <main className="mb-16 h-full">{children}</main>
       </div>
       {process.env.NODE_ENV !== "production" && (
         <ReactQueryDevtools initialIsOpen={false} />

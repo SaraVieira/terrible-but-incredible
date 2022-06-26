@@ -7,9 +7,9 @@ type DefaultLayoutProps = { children: ReactNode }
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   return (
     <>
-      <div className="dark:bg-grayscale-900 min-h-screen text-[#141414] py-8 dark:text-white">
+      <div className="dark:bg-grayscale-900 min-h-screen text-[#141414] pb-8 dark:text-white">
         <Header />
-        <main className="max-w-[80%] w-7xl m-auto mt-8 mb-16 h-full">
+        <main className="max-w-[80%] w-7xl m-auto mb-16 h-full pt-20">
           {children}
         </main>
       </div>

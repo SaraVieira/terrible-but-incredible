@@ -4,36 +4,38 @@ import Link from "next/link"
 export const Header = () => {
   const { data: session } = useSession()
   return (
-    <header>
-      <ul className="flex gap-4 max-w-[80%] w-7xl mx-auto">
-        <li>
-          <Link href="/">
-            <a className="underline">Home</a>
-          </Link>
-        </li>
-        {session?.user ? (
-          <>
-            <Link href="/create-post">
-              <a className="underline">Create Post</a>
+    <header className="absolute w-full z-10 bg-gray-800 py-4 text-gray-200 ">
+      <div className=" max-w-[80%] w-7xl mx-auto flex items-center justify-between">
+        <ul className="flex gap-4">
+          <li>
+            <Link href="/">
+              <a className="font-medium">Home</a>
             </Link>
-            <button
-              onClick={() =>
-                signOut({
-                  redirect: true,
-                  callbackUrl: "/",
-                })
-              }
-              className="underline"
-            >
-              Sign out
-            </button>
-          </>
-        ) : (
-          <Link href="/auth/signin">
-            <a className="underline">Sign In</a>
-          </Link>
-        )}
-      </ul>
+          </li>
+        </ul>
+
+        <ul className="flex gap-4">
+          {session?.user ? (
+            <>
+              <button
+                onClick={() =>
+                  signOut({
+                    redirect: true,
+                    callbackUrl: "/",
+                  })
+                }
+                className="font-medium"
+              >
+                Sign out
+              </button>
+            </>
+          ) : (
+            <Link href="/auth/signin">
+              <a className="font-medium">Sign In</a>
+            </Link>
+          )}
+        </ul>
+      </div>
     </header>
   )
 }
