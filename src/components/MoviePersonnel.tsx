@@ -1,10 +1,21 @@
+import {
+  ChevronDoubleDownIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/outline"
+import { useState } from "react"
 import { PATHS } from "~/utils/constants/TMDB"
+import { Button } from "./Button"
 
 export const MoviePersonnel = ({ people, title }) => {
+  const [open, setOpen] = useState(false)
   return (
     <>
       <h2 className="text-base font-bold mb-3 mt-6">{title}</h2>
-      <ul className="flex gap-6 flex-wrap">
+      <ul
+        className="flex gap-6 flex-wrap overflow-hidden"
+        style={{ height: open ? "auto" : 265 }}
+      >
         {people.map((person) => (
           <li key={person.id} className="text-center w-16">
             {person.profile_path ? (
@@ -40,6 +51,18 @@ export const MoviePersonnel = ({ people, title }) => {
           </li>
         ))}
       </ul>
+      <Button
+        onClick={() => setOpen((o) => !o)}
+        variant="secondary"
+        className="flex gap-2 justify-center items-center"
+      >
+        See {open ? "Less" : "More"}
+        {open ? (
+          <ChevronUpIcon className="w-5 h-5" />
+        ) : (
+          <ChevronDownIcon className="w-5 h-5" />
+        )}
+      </Button>
     </>
   )
 }

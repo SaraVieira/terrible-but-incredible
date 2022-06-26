@@ -8,6 +8,8 @@ import { MovieInfo } from "~/components/MovieInfo"
 import { MoviePersonnel } from "~/components/MoviePersonnel"
 import AddComment from "~/components/Comments/AddComment"
 import { Comments } from "~/components/Comments/Comments"
+import { Videos } from "~/components/Videos"
+import { Images } from "~/components/Images"
 
 const MovieViewPage = () => {
   const id = useRouter().query.id as string
@@ -70,6 +72,10 @@ const MovieViewPage = () => {
           <AddComment id={movie.id} />
         </div>
       </section>
+      <div className="max-w-[80%] w-7xl m-auto">
+        <Videos movie={movie} />
+        <Images movie={movie} />
+      </div>
     </>
   )
 }
