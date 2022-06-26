@@ -32,7 +32,7 @@ export default function AddComment({ id }) {
         </div>
         <div className="min-w-0 flex-1">
           <form onSubmit={addComment} className="relative">
-            <div className="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:!border-yellow focus-within:outline-none focus:ring-0 ring-yellow">
+            <div className="border border-grayscale-300 dark:border-grayscale-700 rounded-lg shadow-sm overflow-hidden focus-within:!border-yellow focus-within:outline-none focus:ring-0 ring-yellow">
               <label htmlFor="comment" className="sr-only">
                 Add a comment
               </label>

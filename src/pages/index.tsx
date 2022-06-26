@@ -1,10 +1,7 @@
 import { Genre, Movie } from "@prisma/client"
-
 import React, { useEffect, useRef } from "react"
-
 import { MovieCard } from "~/components/MovieCard"
 import { Search } from "~/components/Search"
-
 import { useMovies } from "~/utils/hooks/useMovies"
 import { useSearch } from "~/utils/hooks/useSearch"
 

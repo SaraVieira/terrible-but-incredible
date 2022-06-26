@@ -15,7 +15,7 @@ export const Videos = ({ movie }) => {
                   className="aspect-video w-full mb-2"
                 ></iframe>
                 <p className="text-sm font-medium">{video.name}</p>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-grayscale-500">
                   {new Date(video.published_at).toLocaleDateString("pt")}
                 </span>
               </div>

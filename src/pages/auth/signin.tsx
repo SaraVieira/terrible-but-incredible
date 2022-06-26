@@ -19,7 +19,7 @@ function SignIn() {
     <>
       <form
         onSubmit={(e) => signIn(e, router)}
-        className="max-w-[500px] m-auto p-15"
+        className="max-w-[500px] m-auto p-15 mt-12"
       >
         <h2 className="pb-8 font-bold text-2xl">Sign In</h2>
         {router.query.state === STATES.PASSWORD_UPDATED ? (

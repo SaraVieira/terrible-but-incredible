@@ -37,7 +37,10 @@ const ResetPassword = () => {
 
   return (
     <>
-      <form onSubmit={forgotPassword} className="max-w-[500px] m-auto p-15">
+      <form
+        onSubmit={forgotPassword}
+        className="max-w-[500px] m-auto p-15 mt-12"
+      >
         <h2 className="text-center pb-4 font-bold text-2xl">
           Request a new password
         </h2>

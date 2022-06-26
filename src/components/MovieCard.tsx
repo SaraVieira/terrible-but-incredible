@@ -11,8 +11,8 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
   return (
     <Link href={`/movie/${movie.id}`} key={movie.id}>
       <a className="sm:w-[383px] w-full">
-        <article className="bg-grayscale-200 rounded-lg hover:shadow-md hover:scale-105 transition-all">
-          <div className="overflow-hidden rounded-lg relative  sm:max-w-sm">
+        <article className=" rounded-lg hover:shadow-md hover:scale-105 transition-all">
+          <div className="overflow-hidden rounded-lg relative sm:max-w-sm">
             <div
               className="inset-0 absolute"
               style={{
@@ -27,9 +27,11 @@ export const MovieCard = (movie: Movie & { genres: Genre[] }) => {
               }}
             />
             <div className="absolute z-10 bottom-8 left-8 right-8">
-              <h3 className="font-bold text-white text-h3">{movie.title}</h3>
+              <h3 className="font-bold text-white text-h3 dark:text-grayscale-200">
+                {movie.title}
+              </h3>
 
-              <p className="font-medium text-grayscale-50 text-bodyS">
+              <p className="font-medium text-grayscale-50 text-bodyS dark:text-grayscale-400">
                 {genres} I {year} I {movie.vote_average}
               </p>
             </div>

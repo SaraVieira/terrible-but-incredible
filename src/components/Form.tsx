@@ -1,4 +1,5 @@
 import classNames from "classnames"
+import { omit } from "lodash"
 import { forwardRef, ReactElement } from "react"
 
 export const Label = ({ children, ...props }) => (
@@ -24,7 +25,7 @@ export const Input = forwardRef((props: any, ref): ReactElement => {
         <input
           placeholder={label}
           className={classNames(
-            "rounded-xl border-[1px] border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-gray-700",
+            "rounded-xl border-[1px] border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-grayscale-700",
             IconBefore && "pl-12"
           )}
           ref={ref}
@@ -37,13 +38,16 @@ export const Input = forwardRef((props: any, ref): ReactElement => {
 
 // eslint-disable-next-line react/display-name
 export const Textarea = forwardRef(
-  (props: any, ref): ReactElement => (
+  (props: any, ref: any): ReactElement => (
     <>
       <Label htmlFor={props.name || props.id}>{props.label}</Label>
       <textarea
-        className="rounded-xl border-2 border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-gray-700"
+        className={classNames(
+          "rounded-xl border-2 border-grayscale-200 focus:!border-yellow focus:outline-none focus:ring-0 ring-yellow w-full min-h-[48px] placeholder:text-grayscale-400 pr-7 text-grayscale-900 text-sm transition-all dark:bg-grayscale-900 dark:text-grayscale-50 dark:border-transparent",
+          props.classNames
+        )}
         ref={ref}
-        {...props}
+        {...omit(props, "className")}
       />
     </>
   )

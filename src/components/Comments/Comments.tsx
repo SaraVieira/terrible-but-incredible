@@ -6,21 +6,21 @@ export const Comments = ({ id }) => {
   if (!comments?.length) return null
 
   return (
-    <ul role="list" className="divide-y divide-gray-200">
+    <ul role="list" className="divide-y divide-grayscale-200">
       {comments.map((comment) => (
-        <li key={comment.id} className="relative bg-white py-5">
+        <li key={comment.id} className="relative py-5">
           <div className="flex justify-between space-x-3">
             <div className="min-w-0 flex-1">
               <div>
                 <span className="absolute inset-0" aria-hidden="true"></span>
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-grayscale-900 truncate dark:text-grayscale-200">
                   {comment.User?.username}
                 </p>
               </div>
             </div>
             <time
               dateTime="2021-01-27T16:35"
-              className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500"
+              className="flex-shrink-0 whitespace-nowrap text-sm text-grayscale-500 dark:text-grayscale-400"
             >
               {formatDistance(new Date(comment.createdAt), new Date(), {
                 addSuffix: true,
@@ -28,7 +28,7 @@ export const Comments = ({ id }) => {
             </time>
           </div>
           <div className="mt-1">
-            <p className="line-clamp-2 text-sm text-gray-600">
+            <p className="line-clamp-2 text-sm text-grayscale-300">
               {comment.comment}
             </p>
           </div>

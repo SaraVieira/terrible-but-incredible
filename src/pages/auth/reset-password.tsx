@@ -22,7 +22,7 @@ const ResetPassword = () => {
     <>
       <form
         onSubmit={(e) => updatePassword(e, router)}
-        className="max-w-[500px] m-auto p-15"
+        className="max-w-[500px] m-auto p-15 mt-12"
       >
         <h2 className="text-center pb-4 font-bold text-2xl">
           Create a new password

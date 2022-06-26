@@ -26,7 +26,7 @@ const SignUp = () => {
     <>
       <form
         onSubmit={createAccount}
-        className="max-w-[500px] m-auto p-15 h-full justify-center flex flex-col"
+        className="max-w-[500px] m-auto p-15 h-full justify-center flex flex-col mt-12"
       >
         <h2 className="pb-8 font-bold text-2xl">Sign up</h2>
         <div className="mb-5">

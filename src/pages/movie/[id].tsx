@@ -10,6 +10,7 @@ import AddComment from "~/components/Comments/AddComment"
 import { Comments } from "~/components/Comments/Comments"
 import { Videos } from "~/components/Videos"
 import { Images } from "~/components/Images"
+import { SubHeader } from "~/components/Typography"
 
 const MovieViewPage = () => {
   const id = useRouter().query.id as string
@@ -26,7 +27,7 @@ const MovieViewPage = () => {
 
   return (
     <>
-      <div className="relative max-h-[80vh] overflow-hidden">
+      <div className="relative max-h-[80vh] overflow-hidden mb-12">
         {movie?.backdrop_path ? (
           <>
             {" "}
@@ -67,7 +68,7 @@ const MovieViewPage = () => {
       </div>
       <section className="max-w-[80%] w-7xl m-auto grid sm:grid-cols-2 gap-8">
         <div>
-          <h2 className="text-base font-bold mb-3">The Plot</h2>
+          <SubHeader>The Plot</SubHeader>
           <p className="text-grayscale-500 font-normal text-sm">
             {movie.overview}
           </p>

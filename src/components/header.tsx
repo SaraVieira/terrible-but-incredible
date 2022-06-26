@@ -4,7 +4,7 @@ import Link from "next/link"
 export const Header = () => {
   const { data: session } = useSession()
   return (
-    <header className="absolute w-full z-10 bg-gray-800 py-4 text-gray-200 ">
+    <header className="absolute w-full z-10 bg-grayscale-900 py-6 text-grayscale-200 ">
       <div className=" max-w-[80%] w-7xl mx-auto flex items-center justify-between">
         <ul className="flex gap-4">
           <li>
