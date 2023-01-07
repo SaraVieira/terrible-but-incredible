@@ -8,6 +8,8 @@ import { PrismaClient } from "@prisma/client"
 import seeds from "./utils/seed.json"
 import { omit } from "lodash"
 import { createMovieData } from "./utils/createMovieData"
+import { writeFileSync } from "fs"
+
 const prisma = new PrismaClient()
 
 function sleep(ms) {
@@ -17,6 +19,7 @@ function sleep(ms) {
 }
 const removeid = (arr) => arr.map((obj) => omit(obj, "id"))
 async function main() {
+  const movies = [];
   const a = seeds.map(async (seed) => {
     const exists = await prisma.movie.findFirst({
       where: {
@@ -24,8 +27,11 @@ async function main() {
       },
     })
 
-    if (exists) return
+
     const movie = await createMovieData(seed.id)
+    // @ts-ignore
+    movies.push(movie)
+    if (exists) return
     return prisma.movie.create({
       // @ts-ignore
       data: {
@@ -122,7 +128,9 @@ async function main() {
     })
   })
 
-  Promise.all(a)
+  await Promise.all(a)
+
+  writeFileSync("all.json", JSON.stringify(movies))
 }
 
 main()
