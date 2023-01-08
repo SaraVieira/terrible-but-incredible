@@ -29,7 +29,6 @@ export const createMovieData = async (id): Promise<any> => {
     (rsp) => rsp.json()
   )) as { results: Record<string, unknown> }
 
-  console.log("getting movie " + seed.find((m) => m.id)?.title)
 
   return {
     ...details,
